@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <ESP_Kwai.h>
 
 #define MAX_LEDS 12
 #define ONE_WIRE_BUS 12
@@ -15,6 +16,7 @@ void setup() {
   pixels.begin();
   pixels.show();
   dallasTemp.begin();
+  ESP_Kwai.begin(14);
 }
 
 void loop() {
