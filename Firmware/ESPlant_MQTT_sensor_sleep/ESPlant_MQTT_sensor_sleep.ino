@@ -146,9 +146,9 @@ void loop()
   publish("N",      N++);
   publish("millis", millis());
 
-  publish("temp",     bme.readTemperature());
-  publish("pressure", bme.readPressure() / 100.0F);
-  publish("humidity", bme.readHumidity());
+  publish("temp/c",     bme.readTemperature());
+  publish("pressure_mbar", bme.readPressure() / 100.0F);
+  publish("relative_humidity", bme.readHumidity());
 
   sensors_event_t event;
   accel.getEvent(&event);
@@ -165,15 +165,16 @@ void loop()
   publish("adc/soil_1",        kevent.Soil01);
   publish("adc/soil_2",        kevent.Soil02);
   publish("adc/input_voltage", kevent.InputVoltage);
-  publish("adc/internal_temp", kevent.InternalTemp);
-
+  publish("adc/internal_temp/c", kevent.InternalTemp);
+  publish("adc/solar_voltage", kevent.ADC02 * 0.00167);
+  
   dallasTemp.requestTemperatures();
-
-  publish("external/temp_sensor", dallasTemp.getTempCByIndex(0));
+  publish("external/temp_sensor/c", dallasTemp.getTempCByIndex(0));
 
   publish("chip/free_heap",       ESP.getFreeHeap());
   publish("chip/vcc",             ESP.getVcc());
 
+  publish("pir", digitalRead(15) ? "HIGH" : "Low" );
 
   delay(3000);
 
