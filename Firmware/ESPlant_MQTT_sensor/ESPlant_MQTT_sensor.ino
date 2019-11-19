@@ -131,7 +131,7 @@ void loop() {
     accel.getEvent(&event);
     dallasTemp.requestTemperatures();
 
-    logger.publish("adc/internal_temp/c", String(kevent.InternalTemp*0.01));
+    logger.publish("adc/internal_temp/c", String(kevent.InternalTemp * 0.01));
     logger.publish("temp/c", String(bme.readTemperature()));
     logger.publish("external/temp_sensor/c", String(dallasTemp.getTempCByIndex(0)));
     logger.publish("pressure_mbar", String(bme.readPressure() / 100.0F));
@@ -145,11 +145,11 @@ void loop() {
 #ifdef SOLAR_CONNECTED_ADC2
     // I measure panel voltage separately with a voltage divider (2x 10k
     // resistor), after measuring real voltage ends up being 1.67V what ADC reads
-    logger.publish("adc/solar_voltage", String(kevent.ADC02*0.00167));
+    logger.publish("adc/solar_voltage", String(kevent.ADC02 * 0.00167));
 #endif
-    logger.publish("adc/input_voltage", String(kevent.InputVoltage*0.001));
+    logger.publish("adc/input_voltage", String(kevent.InputVoltage * 0.001));
     // I used a volt meature to measure a correction factor (0.956 instead of 1)
-    logger.publish("chip/vcc", String(ESP.getVcc()*0.000956));
+    logger.publish("chip/vcc", String(ESP.getVcc() * 0.000956));
 
     logger.publish("pir", digitalRead(15) ? "HIGH" : "low" );
     logger.publish("chip/free_heap", String(ESP.getFreeHeap()));
